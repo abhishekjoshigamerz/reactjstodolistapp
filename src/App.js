@@ -4,9 +4,6 @@ import axios from 'axios';
 import './App.css';
 import AddComponent from './components/addComponent/addComponent';
 
-
-
-
 const App = () => {
   const [todos, setTodos] = useState([]);
   const [edit, setEdit] = useState(false);
