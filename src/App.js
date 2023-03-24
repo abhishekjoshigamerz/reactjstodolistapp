@@ -15,7 +15,7 @@ const TodoItem = ({ todo }) => (
   
   <ul className={`todo-item ${todo.completed ? 'completed' : ''}`}>
     
-   <li className='listItem'><input type="checkbox" id={todo.id} /><div className='listData'> {todo.id}. {todo.title}
+   <li className='listItem'><div className='listData'> {todo.id}. {todo.title}
    </div>
     <div className='buttons'>
       <button className={`deleteButton `} value={todo.id} onClick={deleteData}  >Delete</button> 
@@ -28,6 +28,7 @@ const TodoItem = ({ todo }) => (
   const addTask = async (newTask) => {
     setTodos([...todos, newTask]);
   }
+
 
 
   const deleteData = async (e) => {
@@ -49,8 +50,16 @@ const TodoItem = ({ todo }) => (
       setEdit(true);
     }else{
       let id = e.target.value;
+      let data = todos.filter((item) => item.id === parseInt(id));
+      try{
+        const response = await axios.patch(`https://jsonplaceholder.typicode.com/todos/${id}`, data);
+        setEdit(false);
+        setChangeTask('');
+        alert('Edit done');
+      }catch(error){
+        console.log(error);
+      }
       
-      setEdit(false);
     }
   }
 
