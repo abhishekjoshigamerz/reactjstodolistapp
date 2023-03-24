@@ -8,10 +8,11 @@ const App = () => {
   const [todos, setTodos] = useState([]);
   const [edit, setEdit] = useState(false);
   const [changeTask, setChangeTask] = useState('');
+
+ //renders the todo list 
 const TodoItem = ({ todo }) => (
   
   <ul className={`todo-item ${todo.completed ? 'completed' : ''}`}>
-    
    <li className='listItem'><div className='listData'> {todo.id}. {todo.title}
    </div>
     <div className='buttons'>
@@ -21,13 +22,13 @@ const TodoItem = ({ todo }) => (
    </li>
   </ul>
   );
-
+  //adds the todo task and renders the todo list again.
   const addTask = async (newTask) => {
     setTodos([...todos, newTask]);
   }
 
 
-
+  //deletes the todo task and send a fake delete request data to api
   const deleteData = async (e) => {
     //make a fake api call now 
     let id = e.target.value;
@@ -41,7 +42,7 @@ const TodoItem = ({ todo }) => (
     }
     
   }
-
+  //edit the todo task and send a fake update request data to api
   const editData = async (e) => {
     if(!edit){
       setEdit(true);
@@ -59,7 +60,7 @@ const TodoItem = ({ todo }) => (
       
     }
   }
-
+  //fetchs the todo task from api
   useEffect(() => {
     const fetchTodos = async () => {
       try {
@@ -75,6 +76,7 @@ const TodoItem = ({ todo }) => (
     fetchTodos();
   }, []);
 
+  //returns the div with the todo list
   return (
     <div className="App">
       <h1 className='appHeader'>Todo List</h1>
